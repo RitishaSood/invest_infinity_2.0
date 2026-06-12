@@ -14,14 +14,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    // Removed but still working fine
     // Do not remove, added explicitly for ShadCN
     // Ignore the warnings
     /* Alias */
-    // "baseUrl": ".",
-    // "paths": {
-    //   "@/*": ["src/*"]
-    // },
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
 
     /* Linting */
     "strict": true,
