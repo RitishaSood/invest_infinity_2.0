@@ -1,26 +1,8 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { colors, styles, chartColors } from "@/lib/theme";
-
-const allocation = [
-  { name: "AAPL", value: 28 },
-  { name: "MSFT", value: 24 },
-  { name: "GOOGL", value: 18 },
-  { name: "NVDA", value: 16 },
-  { name: "AMZN", value: 14 },
-];
-
-const stats = [
-  { label: "Expected Return", value: "13.6%", desc: "Annualized" },
-  { label: "Volatility", value: "17.2%", desc: "Annualized std. dev." },
-  { label: "Sharpe Ratio", value: "1.58", desc: "Risk-adjusted return" },
-];
+import AllocationChart, {
+  defaultAllocationData,
+} from "@/components/AllocationChart";
+import PortfolioCard from "@/components/PortfolioCard";
+import { colors, styles, chartColors, hoverCard } from "@/lib/theme";
 
 export default function Portfolio() {
   return (
@@ -46,88 +28,32 @@ export default function Portfolio() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Allocation Chart */}
-          <div className="p-6 rounded-xl" style={styles.card}>
-            <h2
-              className="text-sm font-semibold mb-4"
-              style={{ color: colors.textPrimary }}
-            >
-              Asset Allocation
-            </h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={allocation}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
-                  paddingAngle={2}
-                  label={({ name, value }) => `${name} ${value}%`}
-                  labelLine={false}
-                >
-                  {allocation.map((_, i) => (
-                    <Cell
-                      key={i}
-                      fill={chartColors.palette[i % chartColors.palette.length]}
-                      stroke="none"
-                    />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    background: chartColors.tooltipBg,
-                    border: `1px solid ${chartColors.tooltipBorder}`,
-                    borderRadius: 8,
-                  }}
-                  labelStyle={{ color: colors.textPrimary }}
-                />
-                <Legend
-                  wrapperStyle={{ fontSize: 12, color: colors.textSecondary }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+          <AllocationChart data={defaultAllocationData} />
 
           {/* Portfolio Stats */}
-          <div className="p-6 rounded-xl" style={styles.card}>
+          <div className={`p-6 rounded-xl ${hoverCard}`} style={styles.card}>
             <h2
               className="text-sm font-semibold mb-4"
               style={{ color: colors.textPrimary }}
             >
               Performance Metrics
             </h2>
-            <div className="space-y-4">
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="flex items-center justify-between p-4 rounded-lg"
-                  style={styles.statTile}
-                >
-                  <div>
-                    <div
-                      className="text-sm font-medium"
-                      style={{ color: colors.textPrimary }}
-                    >
-                      {s.label}
-                    </div>
-                    <div
-                      className="text-xs"
-                      style={{ color: colors.textMuted }}
-                    >
-                      {s.desc}
-                    </div>
-                  </div>
-                  <div
-                    className="text-xl font-bold"
-                    style={{ color: colors.purpleLight }}
-                  >
-                    {s.value}
-                  </div>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 gap-4">
+              <PortfolioCard
+                label="Expected Return"
+                value="13.6%"
+                desc="Annualized"
+              />
+              <PortfolioCard
+                label="Volatility"
+                value="17.2%"
+                desc="Annualized std. dev."
+              />
+              <PortfolioCard
+                label="Sharpe Ratio"
+                value="1.58"
+                desc="Risk-adjusted return"
+              />
             </div>
             <p className="text-xs mt-6" style={{ color: colors.textFaint }}>
               Allocation generated from mock optimization run. Replace with live
@@ -137,7 +63,7 @@ export default function Portfolio() {
         </div>
 
         {/* Holdings table */}
-        <div className="p-6 rounded-xl" style={styles.card}>
+        <div className={`p-6 rounded-xl ${hoverCard}`} style={styles.card}>
           <h2
             className="text-sm font-semibold mb-4"
             style={{ color: colors.textPrimary }}
@@ -162,7 +88,7 @@ export default function Portfolio() {
                 </tr>
               </thead>
               <tbody>
-                {allocation.map((a, i) => (
+                {defaultAllocationData.map((a, i) => (
                   <tr
                     key={a.name}
                     style={{ borderBottom: `1px solid ${colors.surface}` }}
