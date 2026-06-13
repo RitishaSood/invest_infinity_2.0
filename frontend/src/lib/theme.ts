@@ -1,7 +1,22 @@
+/**
+ * Invest Infinity — Design Tokens
+ * Place at: frontend/src/lib/theme.ts
+ *
+ * Single source of truth for colors, gradients, and shared style objects.
+ * Derived from the logo palette: teal/cyan (#00d4ff) -> purple (#7b5ea7).
+ *
+ * Usage:
+ *   import { colors, styles, gradients, chartColors, hoverCard } from "@/lib/theme";
+ *   <div style={styles.page}>
+ *   <div className={`p-6 rounded-xl ${hoverCard}`} style={styles.card}>
+ *   <button style={active ? styles.pillActive : styles.pillInactive}>
+ */
+
 import type { CSSProperties } from "react";
 
-
+// ---------------------------------------------------------------------------
 // Raw color tokens
+// ---------------------------------------------------------------------------
 export const colors = {
   // Background gradient stops (dark navy/blue from logo background)
   bgStart: "#0a0f1e",
@@ -44,15 +59,18 @@ export const colors = {
   accentText: "#00d4ff",
 } as const;
 
-
+// ---------------------------------------------------------------------------
 // Gradients (kept minimal — only for backgrounds & brand glyph text)
+// ---------------------------------------------------------------------------
 export const gradients = {
   pageBackground: `linear-gradient(135deg, ${colors.bgStart} 0%, ${colors.bgMid} 50%, ${colors.bgEnd} 100%)`,
   navFooterBackground: `linear-gradient(135deg, ${colors.bgStart} 0%, ${colors.bgMid} 60%, ${colors.bgEnd} 100%)`,
   brandText: `linear-gradient(90deg, ${colors.cyan}, ${colors.purple})`,
 } as const;
 
+// ---------------------------------------------------------------------------
 // Reusable style objects (React.CSSProperties)
+// ---------------------------------------------------------------------------
 export const styles: Record<string, CSSProperties> = {
   // Page wrapper
   page: {
@@ -130,7 +148,20 @@ export const styles: Record<string, CSSProperties> = {
   },
 };
 
+// ---------------------------------------------------------------------------
+// Hover-pop card class
+// ---------------------------------------------------------------------------
+/**
+ * Apply alongside `styles.card` for a subtle "pop up" hover effect:
+ * slight lift + a soft dark shadow behind the card (no glow).
+ * Usage: className={`p-6 rounded-xl ${hoverCard}`} style={styles.card}
+ */
+export const hoverCard =
+  "transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.6)]";
+
+// ---------------------------------------------------------------------------
 // Recharts-friendly tokens
+// ---------------------------------------------------------------------------
 export const chartColors = {
   primary: colors.cyan,
   secondary: colors.purple,
@@ -140,17 +171,3 @@ export const chartColors = {
   tooltipBorder: "rgba(255,255,255,0.1)",
   palette: ["#00d4ff", "#7b5ea7", "#5eead4", "#a78bfa", "#38bdf8"],
 } as const;
-
-/**
- * Invest Infinity — Design Tokens
- * Place at: frontend/src/lib/theme.ts
- *
- * Single source of truth for colors, gradients, and shared style objects.
- * Derived from the logo palette: teal/cyan (#00d4ff) -> purple (#7b5ea7).
- *
- * Usage:
- *   import { colors, styles, gradients, chartColors } from "@/lib/theme";
- *   <div style={styles.page}>
- *   <div style={styles.card}>
- *   <button style={active ? styles.pillActive : styles.pillInactive}>
- */
