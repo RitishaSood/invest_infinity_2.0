@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Invest Infinity — ML Layer Default Settings
+# config/settings.yaml
+#
+# These values are loaded by config/config.py at import time and override
+# the dataclass defaults.  Edit this file to tune the pipeline without
+# touching any Python code.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Data ──────────────────────────────────────────────────────────────────────
+tickers:
+  - AAPL
+  - MSFT
+  - GOOGL
+  - AMZN
+  - TSLA
+  - NVDA
+
+start_date: "2018-01-01"
+end_date: "today"           # resolved to today's date at run time
+
+# ── Sequence / forecast ────────────────────────────────────────────────────────
+sequence_length: 60         # number of past trading days in each input window
+forecast_horizon: 30        # number of future trading days to predict
+
+# ── Train / test split ─────────────────────────────────────────────────────────
+test_size: 0.2              # 20 % of data held out for evaluation
+
+# ── Training hyper-parameters ─────────────────────────────────────────────────
+batch_size: 32
+epochs: 100
+patience: 10                # early-stopping: halt after this many non-improving epochs
+learning_rate: 0.001
+
+# ── Model architecture ─────────────────────────────────────────────────────────
+lstm_units:
+  - 128
+  - 64
+
+gru_units:
+  - 128
+  - 64
+
+dropout_rate: 0.2
+
+# ── Target column ──────────────────────────────────────────────────────────────
+target_column: Close        # OHLCV column to predict
+
+# ── Paths (relative to ml/ root) ──────────────────────────────────────────────
+raw_data_dir:     data/raw
+saved_models_dir: saved_models
+metrics_path:     saved_models/metrics.json
