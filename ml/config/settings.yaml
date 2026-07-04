@@ -1,0 +1,23 @@
+# =============================================================
+# Invest Infinity - ML Pipeline Settings
+# Edit values here instead of hardcoding them in Python files.
+# =============================================================
+
+# ---- Model / training hyperparameters ----
+sequence_length: 60      # Number of past days used to predict the future
+forecast_horizon: 30     # Number of future days to forecast
+batch_size: 32
+epochs: 50
+random_seed: 42
+learning_rate: 0.001
+
+# ---- Data settings ----
+tickers:
+  - "AAPL"
+  - "GOOGL"
+  - "MSFT"
+  - "TSLA"
+
+start_date: "2015-01-01"
+end_date: "2025-01-01"
+train_test_split: 0.8    # 80% training data, 20% testing data
