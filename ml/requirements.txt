@@ -1,0 +1,19 @@
+# Data collection
+yfinance>=0.2.40
+
+# Data processing
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Machine learning
+scikit-learn>=1.4.0
+tensorflow>=2.16.0
+
+# Model persistence
+joblib>=1.4.0
+
+# Config
+PyYAML>=6.0.1
+
+# Plotting
+matplotlib>=3.8.0
